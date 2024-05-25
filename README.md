@@ -73,8 +73,11 @@ npm install
 npm run dev
 ```
 - Voltando no primeiro terminal (PHP)
+  - Se der erro no RoleSeeder pode ignora-lo
 ```
 php artisan key:generate
+
+php artisan db:seed RoleSeeder
 
 php artisan serve
 ```

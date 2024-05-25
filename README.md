@@ -74,6 +74,8 @@ npm run dev
 ```
 - Voltando no primeiro terminal (PHP)
 ```
+php artisan key:generate
+
 php artisan serve
 ```
 

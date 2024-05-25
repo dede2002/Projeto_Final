@@ -175,6 +175,8 @@ async function markAppointment() {
         alert('Consulta marcada com sucesso.');
         closeAppointmentModal();
         await fetchAppointments();
+        window.location.reload(); // Recarrega a página após finalizar a sessão
+
     } catch (error) {
         console.error('Erro ao marcar a consulta: ', error);
         alert('Erro ao marcar a consulta. Tente novamente.');
@@ -186,6 +188,8 @@ async function announceArrival(sessionId) {
         await axios.post(route('announce.arrival'), { session_id: sessionId });
         alert('Chegada anunciada com sucesso.');
         await fetchAppointments();
+        window.location.reload(); // Recarrega a página após finalizar a sessão
+
     } catch (error) {
         console.error('Erro ao anunciar a chegada: ', error);
         alert('Erro ao anunciar a chegada. Tente novamente.');

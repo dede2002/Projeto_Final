@@ -89,6 +89,7 @@ class SessaoController extends Controller
 
     public function storeAppointment(Request $request)
     {
+        // Validação dos dados
         $request->validate([
             'client_id' => 'required|exists:users,id',
             'psychologist_id' => 'required|exists:users,id',
@@ -96,14 +97,28 @@ class SessaoController extends Controller
             'session_time' => 'required|date_format:H:i',
         ]);
     
+        // Combinando a data e a hora da sessão em um único DateTime
         $sessionDateTime = date('Y-m-d H:i:s', strtotime("$request->session_date $request->session_time"));
     
+        // Verificar se já existe uma sessão marcada para o cliente no mesmo horário
+        $existingSession = Sessao::where('psychologist_id', $request->psychologist_id)
+            ->where('session_date', $sessionDateTime)
+            ->first();
+    
+        // Se já existir uma sessão, retornar um erro
+        if ($existingSession) {
+            return redirect()->route('secretaria.dashboard')->with('error', 'Já existe uma sessão marcada para este cliente neste horário.');
+
+        }
+    
+        // Criar a sessão se não houver conflitos
         Sessao::create([
             'client_id' => $request->client_id,
             'psychologist_id' => $request->psychologist_id,
             'session_date' => $sessionDateTime,
         ]);
     
+        // Redirecionar com mensagem de sucesso
         return redirect()->route('secretaria.dashboard')->with('success', 'Consulta marcada com sucesso.');
     }
 
@@ -139,6 +154,24 @@ class SessaoController extends Controller
         });
 
         return response()->json($appointments);
+    }
+    public function atestados($id) // Corrigir o tipo de parâmetro
+    {
+        $session = Sessao::with(['client', 'psychologist'])->find($id); // Carregar relações corretas
+
+        if (!$session) {
+            return response()->json(['error' => 'Sessão não encontrada'], 404);
+        }
+
+        return response()->json([
+            'client' => $session->client,
+            'psychologist' => $session->psychologist,
+            'session_date' => $session->session_date,
+        ]);
+    }
+
+    public function abrirAtestado(){
+        return Inertia::render('Atestados');
     }
 
 }

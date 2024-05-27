@@ -67,5 +67,6 @@ Route::get('/Atestados/{id}', [SessaoController::class, 'atestados']); // Corrig
 
 Route::post('/welcome', [testeController::class, 'storeSecretaria'])->name('secretarias.teste');
 
+Route::delete('/sessions/{id}', [SessaoController::class, 'cancelSession']);
 
 require __DIR__.'/auth.php';

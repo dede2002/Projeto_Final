@@ -173,5 +173,17 @@ class SessaoController extends Controller
     public function abrirAtestado(){
         return Inertia::render('Atestados');
     }
+    
+    public function cancelSession($id)
+    {
+        $session = Sessao::find($id);
 
+        if (!$session) {
+            return response()->json(['error' => 'Sessão não encontrada'], 404);
+        }
+
+        $session->delete();
+
+        return response()->json(['success' => 'Sessão cancelada com sucesso'], 200);
+    }
 }

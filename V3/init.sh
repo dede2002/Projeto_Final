@@ -14,9 +14,6 @@ if [ ! -f .env ]; then
   cp .env.example .env
 fi
 
-# Substituir as variáveis de ambiente do banco de dados
-sed -i 's/DB_HOST=127.0.0.1/DB_HOST=db/' .env
-sed -i 's/DB_PASSWORD=/DB_PASSWORD=root/' .env
 
 # Definir permissões apropriadas para o diretório de armazenamento e cache
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache

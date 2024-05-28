@@ -1,4 +1,4 @@
-FROM php:8.3.6-apache
+FROM php:8.3.7-apache
 
 # Instalar dependências do sistema
 RUN apt-get update && apt-get install -y \

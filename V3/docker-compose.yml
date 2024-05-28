@@ -23,14 +23,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
       MYSQL_DATABASE: 'laravel'
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-      MYSQL_USER: 'root'
->>>>>>> d046f65db8cd1b419e62e575aa4af16750d6e2fc
-=======
 
->>>>>>> ec150b3a15597c3455a38def723d01aec6475f7d
       MYSQL_PASSWORD: 'root'
     ports:
       - "3308:3306"

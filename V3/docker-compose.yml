@@ -1,3 +1,4 @@
+version: '3.8'
 services:
   php:
     build: .
@@ -7,10 +8,9 @@ services:
     volumes:
       - ./laravel:/var/www/html:rw,cached
       - ./laravel/config/apache.conf:/etc/apache2/sites-available/000-default.conf
-      - /var/www/html/node_modules 
+      - /var/www/html/node_modules
       - /var/www/html/public/build
       - /var/www/html/vendor
-
     environment:
       - DB_HOST=db
     networks:
@@ -19,10 +19,12 @@ services:
       - db
 
   db:
-    image: mysql:latest  # Especifique a imagem do seu banco de dados
+    image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
       MYSQL_DATABASE: 'laravel'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'root'
     ports:
       - "3308:3306"
     volumes:
@@ -36,5 +38,3 @@ volumes:
 networks:
   app-network:
     driver: bridge
-
-

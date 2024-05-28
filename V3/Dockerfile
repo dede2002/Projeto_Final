@@ -47,6 +47,8 @@ RUN a2enmod rewrite
 
 # Definir permissões apropriadas para o diretório de armazenamento
 RUN chown -R www-data:www-data /var/www/html/storage/
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Definir a diretiva ServerName globalmente para suprimir avisos de sintaxe
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf

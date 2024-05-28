@@ -1,5 +1,6 @@
+#!/bin/bash
 
-# Esperar 10 segundos
+# Esperar 15 segundos para o MySQL iniciar
 sleep 15
 
 # Iniciar o Apache em primeiro plano
@@ -8,8 +9,18 @@ apache2-foreground &
 # Mudar para o diretório do Laravel
 cd /var/www/html
 
-# copiar a .env.example para .env
-cp .env.example .env
+# Copiar a .env.example para .env se não existir
+if [ ! -f .env ]; then
+  cp .env.example .env
+fi
+
+# Substituir as variáveis de ambiente do banco de dados
+sed -i 's/DB_HOST=127.0.0.1/DB_HOST=db/' .env
+sed -i 's/DB_PASSWORD=/DB_PASSWORD=root/' .env
+
+# Definir permissões apropriadas para o diretório de armazenamento e cache
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Gere a chave da aplicação Laravel
 php artisan key:generate
@@ -17,9 +28,11 @@ php artisan key:generate
 # Executar as migrações do Laravel
 php artisan migrate
 
+# Executar os seeders do Laravel
 php artisan db:seed
 
+# Executar o npm run dev
 npm run dev &
 
-# Mantenha o contêiner em execução
+# Manter o contêiner em execução
 tail -f /dev/null

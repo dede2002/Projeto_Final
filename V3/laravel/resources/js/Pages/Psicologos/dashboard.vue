@@ -2,12 +2,7 @@
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard do Psicólogo</h2>
-            <Link
-                    :href="route('psicologos.documentos')"
-                    class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition focus:outline-none focus:ring"
-                >
-                    Documentos
-                </Link>
+
 
         </template>
 

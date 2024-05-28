@@ -168,7 +168,7 @@ export default {
       this.$inertia.post(route('clients.store'), this.client, {
         onSuccess: () => {
           alert('Cliente adicionado com sucesso!');
-          this.$router('/secretaria/dashboard');
+          window.location = route('secretaria.dashboard');        
         },
         onError: (errors) => {
           console.error(errors);
@@ -179,7 +179,7 @@ export default {
       this.$inertia.post(route('psicologos.store'), this.psicologo, {
         onSuccess: () => {
           alert('Psicólogo adicionado com sucesso!');
-          this.$router.push('/secretaria/dashboard');
+          window.location = route('secretaria.dashboard');        
         },
         onError: (errors) => {
           console.error(errors);
@@ -190,7 +190,7 @@ export default {
       this.$inertia.post(route('secretarias.store'), this.secretaria, {
         onSuccess: () => {
           alert('Secretária adicionada com sucesso!');
-          this.$router.push('/secretaria/dashboard');
+          window.location = route('secretaria.dashboard');        
         },
         onError: (errors) => {
           console.error(errors);

@@ -62,7 +62,11 @@ Route::post('/mark-appointment', [SessaoController::class, 'storeAppointment'])-
 Route::post('/finish-session', [SessaoController::class, 'finishSession'])->name('finish.session');
 Route::get('/psychologist-appointments', [SessaoController::class, 'getAppointmentsForPsychologist'])->name('psychologist.appointments');
 
+Route::get('/Atestados/', [SessaoController::class, 'abrirAtestado'])->name('atestado');
+Route::get('/Atestados/{id}', [SessaoController::class, 'atestados']); // Corrigir o nome do controlador
+
 Route::post('/welcome', [testeController::class, 'storeSecretaria'])->name('secretarias.teste');
 
+Route::delete('/sessions/{id}', [SessaoController::class, 'cancelSession']);
 
 require __DIR__.'/auth.php';

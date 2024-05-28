@@ -17,9 +17,13 @@ Depois de rodar o comando acima pela primeira vez, pode subir os containers apen
 docker-compose up -d
 ```
 
-Você pode fazer login como secretária com as seguintes credenciais:
+## Você pode fazer login como secretária com as seguintes credenciais:
 
 ```
 E-Mail: secretaria@secretaria.com
 Senha: 123456789
 ```
+
+## Acessando o banco de dados
+
+No MySQL Workbench, cria uma nova conexão com a porta 3308, ela estará lá

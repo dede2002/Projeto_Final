@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessaoController;
 use App\Http\Controllers\PsicologoController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\FormularioController;
 use Illuminate\Foundation\Application;
 use Inertia\Inertia;
 
@@ -65,8 +66,9 @@ Route::get('/psychologist-appointments', [SessaoController::class, 'getAppointme
 Route::get('/Atestados/', [SessaoController::class, 'abrirAtestado'])->name('atestado');
 Route::get('/Atestados/{id}', [SessaoController::class, 'atestados']); // Corrigir o nome do controlador
 
-Route::post('/welcome', [testeController::class, 'storeSecretaria'])->name('secretarias.teste');
-
 Route::delete('/sessions/{id}', [SessaoController::class, 'cancelSession']);
+
+Route::get('/formulario', [FormularioController::class, 'index'])->name('formulario.index');
+Route::post('/formulario', [FormularioController::class, 'store'])->name('formulario.store');
 
 require __DIR__.'/auth.php';

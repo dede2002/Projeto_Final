@@ -117,7 +117,7 @@
 <script setup>
 import { ref } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
-import { useForm, router } from '@inertiajs/vue3'; // Import useForm and router from inertia-vue3
+import { router, useForm } from '@inertiajs/vue3';
 
 const { props } = usePage();
 
@@ -128,8 +128,19 @@ const contactForm = ref({
 });
 
 const submitContactForm = () => {
-  // Implement the form submission logic here.
-  alert('Formulário enviado com sucesso!');
+  router.post(route('formulario.store'), contactForm.value, {
+    onSuccess: () => {
+      alert('Formulário enviado com sucesso!');
+      // Limpe o formulário após o envio
+      contactForm.value.name = '';
+      contactForm.value.email = '';
+      contactForm.value.message = '';
+    },
+    onError: (errors) => {
+      console.error(errors);
+      alert('Ocorreu um erro ao enviar o formulário. Verifique os dados e tente novamente.');
+    }
+  });
 };
 
 const message = ref('');
@@ -165,8 +176,7 @@ function getDashboardRoute(userRole) {
 }
 
 const navigateToAtestado = () => {
-  // Use Inertia to navigate to the "Atestados" page
-  router.get(route('atestado')); // Use router from inertia-vue3 to navigate
+  router.get(route('atestado'));
 };
 
 const scrollToSection = (sectionId) => {
@@ -176,6 +186,8 @@ const scrollToSection = (sectionId) => {
   }
 };
 </script>
+
 <style scoped>
 /* Adicione seu estilo personalizado aqui */
 </style>
+

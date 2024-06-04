@@ -1,6 +1,16 @@
 # Sobre o Projeto
 Esse projeto teve o objetivo de criar um sistema para uma clínica de psicólogos, e aprimorar conceitos aprendidos em Banco de Dados e App.
 
+# Tecnologias Utilizadas no Projeto
+- Visual Studio Code: ambiente para realizar os códigos do projeto
+- Laravel: back e front end
+- VueJs: dentro do Laravel para o front
+- Docker: utilização de containers
+- Docker Swarm: adiministrar os containers
+- MySql: banco de dados
+- ElectronJs: criar um app para Windows
+- Trello: planejamento do projeto
+
 # Integrando o docker em nosso projeto
 
 Ao baixar o projeto, abra a pasta "V3" no terminal

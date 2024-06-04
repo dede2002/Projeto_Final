@@ -1,7 +1,11 @@
 <template>
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="text-lg leading-6 font-medium text-gray-900">Editando dados de: {{ session.client.name }}</h2>
+            <h2 class="text-lg leading-6 font-medium text-gray-900">Editando dados de: {{ client.name }}</h2>
+
+            <button @click="generatePDF" class="ml-4 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-700 transition focus:outline-none focus:ring">
+                Gerar PDF
+            </button>
         </template>
 
         <div class="py-12">
@@ -12,14 +16,14 @@
                         <!-- Informações do Paciente -->
                         <div class="mb-6">
                             <h3 class="text-xl font-semibold mb-2">Informações do Paciente</h3>
-                            <p><strong>Nome:</strong> {{ session.client.name }}</p>
-                            <p><strong>Email:</strong> {{ session.client.email }}</p>
-                            <p><strong>Telefone:</strong> {{ session.client.telefone }}</p>
-                            <p><strong>CEP:</strong> {{ session.client.cep }}</p>
-                            <p><strong>Logradouro:</strong> {{ session.client.logradouro }}</p>
-                            <p><strong>Bairro:</strong> {{ session.client.bairro }}</p>
-                            <p><strong>Cidade:</strong> {{ session.client.cidade }}</p>
-                            <p><strong>Estado:</strong> {{ session.client.estado }}</p>
+                            <p><strong>Nome:</strong> {{ client.name }}</p>
+                            <p><strong>Email:</strong> {{ client.email }}</p>
+                            <p><strong>Telefone:</strong> {{ client.telefone }}</p>
+                            <p><strong>CEP:</strong> {{ client.cep }}</p>
+                            <p><strong>Logradouro:</strong> {{ client.logradouro }}</p>
+                            <p><strong>Bairro:</strong> {{ client.bairro }}</p>
+                            <p><strong>Cidade:</strong> {{ client.cidade }}</p>
+                            <p><strong>Estado:</strong> {{ client.estado }}</p>
                         </div>
 
                         <!-- Formulário de Edição da Sessão -->
@@ -38,26 +42,6 @@
                                 </button>
                             </div>
                         </form>
-
-                        <!-- Formulário de Geração de Documentos -->
-                        <div class="mt-8">
-                            <h3 class="text-xl font-semibold mb-2">Gerar Documento</h3>
-                            <form @submit.prevent="generateDocument">
-                                <div class="mb-4">
-                                    <label for="documentNotes" class="block text-sm font-medium text-gray-700">Notas Adicionais</label>
-                                    <textarea id="documentNotes" v-model="documentNotes" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
-                                </div>
-                                <div class="flex justify-end mb-4">
-                                    <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-700 transition focus:outline-none focus:ring">
-                                        Gerar Documento
-                                    </button>
-                                </div>
-                            </form>
-                            <div v-if="generatedDocument" class="bg-white shadow overflow-hidden sm:rounded-lg p-4">
-                                <h3 class="text-xl font-semibold mb-2">Documento Gerado</h3>
-                                <p v-html="generatedDocument"></p>
-                            </div>
-                        </div>
 
                         <!-- Sessões Anteriores -->
                         <div class="mt-8">
@@ -100,17 +84,11 @@ const form = reactive({
 });
 
 const documentNotes = ref('');
-const generatedDocument = ref('');
+const atestado = ref('');
 const userName = ref(props.auth.user.name);
 
-const documentTemplate = `
-    <p>Eu, Dr(a). <strong>${userName.value}</strong>, atesto que o(a) paciente <strong>${session.value.client.name}</strong> compareceu à sessão em nossa clínica.</p>
-    <p>Notas da sessão:</p>
-    <p>{{documentNotes}}</p>
-`;
-
 const pastSessions = computed(() => {
-    return sessions.value.filter(session => session.client_arrived === 2 && session.client_id === client.value.id);
+    return sessions.value.filter(session => session.client_arrived === 2 && session.client_id === client.value.user_id);
 });
 
 const updateSession = () => {
@@ -125,12 +103,7 @@ const updateSession = () => {
         });
 };
 
-const generateDocument = () => {
-    generatedDocument.value = documentTemplate
-        .replace('{{documentNotes}}', documentNotes.value);
+const generatePDF = () => {
+    window.location = route('generate-pdf', session.value.id);
 };
 </script>
-
-<style scoped>
-/* Adicione seu estilo personalizado aqui */
-</style>

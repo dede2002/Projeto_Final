@@ -65,6 +65,8 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
+        
+
         Barryvdh\DomPDF\ServiceProvider::class,
 
 
@@ -115,4 +117,8 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    'aliases' => [
+        // Outros aliases
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+    ],
 ];

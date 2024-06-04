@@ -38,6 +38,7 @@ RUN cd /var/www/html && npm install
 
 # Instalar dependências do Composer
 RUN cd /var/www/html && composer install
+RUN cd /var/www/html && composer require barryvdh/laravel-dompdf
 
 # Executar build do npm
 RUN cd /var/www/html && npm run build

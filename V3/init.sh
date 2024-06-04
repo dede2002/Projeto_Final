@@ -14,7 +14,6 @@ if [ ! -f .env ]; then
   cp .env.example .env
 fi
 
-
 # Definir permissões apropriadas para o diretório de armazenamento e cache
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache

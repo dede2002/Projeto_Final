@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sessao;
+use App\Models\Client;
 use Inertia\Inertia;
+use PDF;
+
 
 class SessaoController extends Controller
 {
@@ -38,16 +41,21 @@ class SessaoController extends Controller
 
     public function edit($id)
     {
+        // Carregar a sessão com os dados do cliente
         $session = Sessao::with('client')->findOrFail($id);
-        $client = $session->client;
-    
+        // Obter o client_id da sessão
+        $client_id = $session->client_id;
+        // Carregar o cliente a partir da tabela clients usando user_id
+        $client = Client::where('user_id', $client_id)->firstOrFail();
+
+        // Passar os dados para a view
         return inertia('Psicologos/editar', [
             'session' => $session,
             'client' => $client,
-            'sessions' => Sessao::where('client_id', $client->id)->get(),
+            'sessions' => Sessao::where('client_id', $client_id)->get(),
         ]);
     }
-
+    
     public function show($id)
     {
         $session = Sessao::with('client', 'psychologist', 'sessoes')->findOrFail($id);
@@ -185,5 +193,20 @@ class SessaoController extends Controller
         $session->delete();
 
         return response()->json(['success' => 'Sessão cancelada com sucesso'], 200);
+    }
+
+    public function generatePDF($id)
+    {
+        $session = Sessao::with(['client', 'psychologist'])->find($id); // Carregar relações corretas
+
+        $data = [
+            'client' => $session->client,
+            'psychologist' => $session->psychologist,
+            'session_date' => $session->session_date,
+        ];
+
+        $pdf = PDF::loadView('pdf.sessao', $data);
+
+        return $pdf->download('sessao.pdf');
     }
 }

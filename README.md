@@ -1,3 +1,6 @@
+# Sobre o Projeto
+Esse projeto teve o objetivo de criar um sistema para uma clínica de psicólogos, e aprimorar conceitos aprendidos em Banco de Dados e App.
+
 # Integrando o docker em nosso projeto
 
 Ao baixar o projeto, abra a pasta "V3" no terminal

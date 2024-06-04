@@ -1,7 +1,7 @@
 # Sobre o Projeto
 Esse projeto teve o objetivo de criar um sistema para uma clínica de psicólogos, e aprimorar conceitos aprendidos em Banco de Dados e App.
 
-# Tecnologias Utilizadas no Projeto
+# Tecnologias Utilizadas
 - Visual Studio Code: ambiente para realizar os códigos do projeto
 - Laravel: back e front end
 - VueJs: dentro do Laravel para o front

@@ -71,6 +71,4 @@ Route::delete('/sessions/{id}', [SessaoController::class, 'cancelSession']);
 Route::get('/formulario', [FormularioController::class, 'index'])->name('formulario.index');
 Route::post('/formulario', [FormularioController::class, 'store'])->name('formulario.store');
 
-Route::get('/generate-pdf/{id}', [SessaoController::class, 'generatePDF'])->name('generate-pdf');
-
 require __DIR__.'/auth.php';

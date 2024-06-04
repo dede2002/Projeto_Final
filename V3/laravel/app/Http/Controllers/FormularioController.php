@@ -17,7 +17,7 @@ class FormularioController extends Controller
     public function store(Request $request) 
     {
         
-            Mail::to('luisguipi@hotmail.com', 'Gui Pilotto')->send(new Formulario([    
+            Mail::to('contato@duhaclinica.com', 'Joueph')->send(new Formulario([    
 
             'fromName'=> $request -> input('name'), 
             'fromEmail'=> $request -> input('email'),
